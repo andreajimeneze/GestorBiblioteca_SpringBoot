@@ -13,11 +13,24 @@ public class BookService implements IBookService {
 
     @Autowired
     private IBookRepository bookRepository;
+
     @Override
     public Book getBook(Long id) {
         Book book = bookRepository.findById(id).orElse(null);
         return book;
     }
+
+    @Override
+    public Book getBookByTitle(String title) {
+        Book book = bookRepository.findByTitle(title);
+        return book;
+    }
+    @Override
+    public Book getBookByAuthor(String author) {
+        Book book = bookRepository.findByAuthor(author);
+        return book;
+    }
+
 
     @Override
     public List<Book> getAllBooks() {
