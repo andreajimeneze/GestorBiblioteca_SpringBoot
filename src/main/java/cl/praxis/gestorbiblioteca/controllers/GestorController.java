@@ -31,17 +31,17 @@ public class GestorController {
         return "Libro añadido correctamente";
     }
 
-    @PostMapping("/allbooks")
+    @GetMapping("/allbooks")
     public List<Book> getAllBooks() {
         return bookService.getAllBooks();
     }
 
-    @PostMapping("/bytitle")
+    @GetMapping("/bytitle")
     public Book getBookByTitle(String title) {
         return bookService.getBookByTitle(title);
     }
 
-    @PostMapping("/byauthor")
+    @GetMapping("/byauthor")
     public Book getBookByAuthor(String author) {
         return bookService.getBookByAuthor(author);
     }
