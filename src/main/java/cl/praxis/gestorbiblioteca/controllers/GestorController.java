@@ -23,7 +23,7 @@ public class GestorController {
     private static final Logger LOG = LoggerFactory.getLogger(GestorBibliotecaApplication.class);
 
     //Enrutamiento a métodos post y put
-    @GetMapping("/addbook")
+    @GetMapping("/create")
     public String showFormAdd() {
         return "form";
     }
@@ -48,16 +48,18 @@ public class GestorController {
     public String addBook(@ModelAttribute Book book) {
         LOG.info("Añadiendo nuevo libro");
         bookService.addBook(book);
+        System.out.println(book);
         LOG.info("Libro añadido: " + book.getTitle());
-        return "redirect:/allbooks";
+        return "redirect:/gestor/allbooks";
     }
 
     //Crud editar libro
     @PutMapping
     public String editBook(@ModelAttribute Book book) {
         LOG.info("Editando libro: " + book.getTitle());
+        System.out.println(book.getTitle());
         bookService.updateBook(book);
-        return "redirect:/allbooks";
+        return "redirect:/gestor/allbooks";
     }
 
 
@@ -78,7 +80,7 @@ public class GestorController {
         if(titleBook != null) {
             LOG.info("Editando Libro " + titleBook.getTitle());
             bookService.getBookByTitle(title);
-            return "redirect:/allbooks";
+            return "redirect:/gestor/allbooks";
         } else {
             LOG.error("Libro no encontrado");
             return "index";
@@ -93,7 +95,7 @@ public class GestorController {
 
         if(authorBook.getAuthor().equals(author)) {
             bookService.getBookByTitle(authorBook.getTitle());
-            return "redirect:/allbooks";
+            return "redirect:/gestor/allbooks";
         } else {
             return "index";
         }
@@ -104,19 +106,9 @@ public class GestorController {
         Book deletedBook = bookService.getBook(id);
         if(deletedBook != null) {
             bookService.deleteBook(id);
-            return "redirect:/allbooks";
+            return "redirect:/gestor/allbooks";
         } else {
             return "index";
         }
     }
-
-    @GetMapping("/message")
-    public String LogMessage() {
-        String message = "un mensaje";
-        LOG.info("Se envía" + message);
-
-        String response = message;
-        return response;
-    }
-
 }

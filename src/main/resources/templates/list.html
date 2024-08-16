@@ -5,49 +5,53 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Lista de libros</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Título</th>
-        <th>Autor</th>
-        <th>Editorial</th>
-        <th>Año Edición</th>
-        <th>Páginas</th>
+    <h1>Lista de libros</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Editorial</th>
+            <th>Año Edición</th>
+            <th>Páginas</th>
+        </tr>
+        </thead>
+        <tbody >
+    <tr th:each="book: ${books}">
+        <td th:text="${book.id}"></td>
+        <td  th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td  th:text="${book.editorial}"></td>
+        <td th:text="${book.yearEdition}"></td>
+        <td  th:text="${book.pages}"></td>
+        <td>
+            <form th:action="@{/gestor/edit}" th:method="get" th:object="${books}">
+                <input type="hidden" name="id" th:value="${book.id}" >
+                <input type="submit" value="Editar">
+            </form>
+            <form th:action="@{/gestor/delete}" th:method="delete" th:object="${books}">
+                <input type="hidden" name="id" th:value="${book.id}" >
+                <input type="submit" value="Borrar" onclick="return confirmDelete()">
+            </form>
+
+        </td>
     </tr>
-    </thead>
-    <tbody >
-<tr th:each="book: ${books}">
-    <td th:text="${book.id}"></td>
-    <td  th:text="${book.title}"></td>
-    <td th:text="${book.author}"></td>
-    <td  th:text="${book.editorial}"></td>
-    <td th:text="${book.yearEdition}"></td>
-    <td  th:text="${book.pages}"></td>
-    <td>
-        <form th:action="">
-            <input type="submit" >
-        </form>
+        </tbody>
+    </table>
 
-    </td>
-</tr>
-    </tbody>
-</table>
+    <a th:href="@{/gestor/create}" th:type="submit">Agregar libro</a>
 
-<a th:href="@{/gestor/addbook}">Agregar libro</a>
-<!--
-<div class="container" >
-    <div class="container" >
-        <ul>
-        <li th:text="${book.id}"></li>
-        <li  th:text="${book.title}"></li>
-        <li th:text="${book.author}"></li>
-        <li  th:text="${book.editorial}"></li>
-        <li th:text="${book.yearEdition}"></li>
-        <li  th:text="${book.pages}"></li>
-        </ul>
-    </div>
-    -->
+<script>
+    function confirmDelete() {
+        if(confirm("Está seguro que quiere eliminar el libro")) {
+            return true;
+        } else {
+            event.preventDefault();
+            return false;
+        }
+    }
+
+</script>
 </body>
 </html>
