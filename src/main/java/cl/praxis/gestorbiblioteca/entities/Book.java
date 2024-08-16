@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import org.springframework.data.annotation.Id;
-
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,11 +12,10 @@ import org.springframework.data.annotation.Id;
 @Entity
 @Table(name="libros")
 public class Book {
-    @jakarta.persistence.Id
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name ="id_libro", nullable = false )
-    private long id;
+    @Column(name = "id_libro")
+    private Long id;
     @Column(name = "titulo", nullable = false, length = 100)
     private String title;
     @Column(name = "autor", length = 100, nullable = false)

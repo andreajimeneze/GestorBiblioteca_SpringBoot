@@ -5,8 +5,8 @@ import cl.praxis.gestorbiblioteca.repositories.IBookRepository;
 import cl.praxis.gestorbiblioteca.services.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
 
 @Service("BookService")
 public class BookService implements IBookService {
@@ -16,38 +16,35 @@ public class BookService implements IBookService {
 
     @Override
     public Book getBook(Long id) {
-        Book book = bookRepository.findById(id).orElse(null);
-        return book;
+        return bookRepository.findById(id).orElse(null);
     }
 
     @Override
     public Book getBookByTitle(String title) {
-        Book book = bookRepository.findByTitle(title);
-        return book;
+        return bookRepository.findByTitle(title);
     }
     @Override
     public Book getBookByAuthor(String author) {
-        Book book = bookRepository.findByAuthor(author);
-        return book;
+        return bookRepository.findByAuthor(author);
     }
-
 
     @Override
     public List<Book> getAllBooks() {
-        List<Book> listBooks = bookRepository.findAll();
-        return listBooks;
+        return bookRepository.findAll();
     }
 
     @Override
     public Book addBook(Book book) {
-        Book newBook = bookRepository.save(book);
-        return newBook;
+        return bookRepository.save(book);
     }
 
     @Override
     public Book updateBook(Book book) {
-        Book updatedBook = bookRepository.save(book);
-        return updatedBook;
+        Optional<Book> selectedBook = bookRepository.findById(book.getId());
+        if(selectedBook != null) {
+            return bookRepository.save(book);
+        }
+        return null;
     }
 
     @Override

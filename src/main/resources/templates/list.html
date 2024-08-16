@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Lista de libros</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Editorial</th>
+        <th>Año Edición</th>
+        <th>Páginas</th>
+    </tr>
+    </thead>
+    <tbody >
+<tr th:each="book: ${books}">
+    <td th:text="${book.id}"></td>
+    <td  th:text="${book.title}"></td>
+    <td th:text="${book.author}"></td>
+    <td  th:text="${book.editorial}"></td>
+    <td th:text="${book.yearEdition}"></td>
+    <td  th:text="${book.pages}"></td>
+    <td>
+        <form th:action="">
+            <input type="submit" >
+        </form>
+
+    </td>
+</tr>
+    </tbody>
+</table>
+
+<a th:href="@{/gestor/addbook}">Agregar libro</a>
+<!--
+<div class="container" >
+    <div class="container" >
+        <ul>
+        <li th:text="${book.id}"></li>
+        <li  th:text="${book.title}"></li>
+        <li th:text="${book.author}"></li>
+        <li  th:text="${book.editorial}"></li>
+        <li th:text="${book.yearEdition}"></li>
+        <li  th:text="${book.pages}"></li>
+        </ul>
+    </div>
+    -->
+</body>
+</html>
